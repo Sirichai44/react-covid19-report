@@ -1,0 +1,10 @@
+.bar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bar-container .chart{
+    margin-top: 50px;
+}

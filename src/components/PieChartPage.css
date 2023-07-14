@@ -1,0 +1,13 @@
+.pie-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pie-container .chart{
+    margin-top: 50px;
+}
+.pie-container .text{
+    margin-top: 50px;
+}
