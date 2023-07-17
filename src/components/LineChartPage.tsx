@@ -1,7 +1,9 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import './LineChartPage.css'
+import './LineChartPage.css';
+import { useSelector } from 'react-redux';
 
-const LineChartPage = ({data}:any) => {
+const LineChartPage = () => {
+  const { data } = useSelector((state:any) => state.data)
   // console.log(data);
   return (
     <div className="line-container">

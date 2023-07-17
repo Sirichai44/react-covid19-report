@@ -1,32 +1,22 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import Typography from "@mui/material/Typography";
-import './PieChartPage.css'
+import './PieChartPage.css';
+import { useSelector } from "react-redux";
 
-const PieChartPage = ({ data }: any) => {
+const PieChartPage = () => {
+  const { data } = useSelector((state:any) => state.data)
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
-
-  const formatData = data.map((item: any) => {
-    const { totalPublicHospital, totalPrivateHospital, totalOtherPUI, publishdate } = item;
-
-    return {
-      totalPublicHospital,
-      totalPrivateHospital,
-      totalOtherPUI,
-      publishdate
-    };
-  });
-
-  const formatDataSlice = formatData.slice(-1);
+  
   const newData = [
     {
       name: "TotalPublicHospital",
-      value: formatDataSlice[0].totalPublicHospital,
+      value: data.slice(-1)[0].totalPublicHospital,
     },
     {
       name: "TotalPrivateHospital",
-      value: formatDataSlice[0].totalPrivateHospital,
+      value: data.slice(-1)[0].totalPrivateHospital,
     },
-    { name: "TotalOtherPUI", value: formatDataSlice[0].totalOtherPUI },
+    { name: "TotalOtherPUI", value: data.slice(-1)[0].totalOtherPUI },
   ];
 
   const RADIAN = Math.PI / 180;
@@ -60,7 +50,7 @@ const PieChartPage = ({ data }: any) => {
   return (
     <div className="pie-container">
       <Typography variant="h5" className="text">
-        รายงานข้อมูล Covid-19 ของวันที่ {formatDataSlice[0].publishdate}
+        รายงานข้อมูล Covid-19 ของวันที่ {data.slice(-1)[0].publishdate}
       </Typography>
       <ResponsiveContainer width="100%" aspect={3} className={"chart"}>
         <PieChart >

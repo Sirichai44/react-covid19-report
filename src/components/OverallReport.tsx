@@ -3,6 +3,10 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { addData } from "../store/Reducer";
+import { useEffect } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   margin: "40px",
@@ -11,11 +15,28 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 interface OverallReportProps {
-  data: any;
   formatMoney: (money: number) => string;
 }
-export default function OverallReport({ data, formatMoney }: OverallReportProps) {
-  const lastData = data.slice(-1)[0];
+
+export default function OverallReport({ formatMoney }: OverallReportProps) {
+  const dispatch = useDispatch();
+  const { data } = useSelector((state:any) => state.data) 
+  // console.log(data)
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(
+        "https://cors-anywhere.herokuapp.com/https://covid19.traffy.in.th/api/state-covid19"
+      );
+  
+      dispatch(addData(res.data.results));
+    };
+
+    fetchData();
+  }, []);
+
+  const lastData = data.length > 0 ? data.slice(-1)[0]: <p>Loading</p>;
+
   // console.log(lastData);
   return (
     <div className="overallReport">

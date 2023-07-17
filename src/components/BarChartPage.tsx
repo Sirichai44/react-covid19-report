@@ -15,41 +15,27 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import "./BarChartPage.css";
+import { useSelector } from "react-redux";
 
 
-function BarChartPage({ data }: any) {
+function BarChartPage() {
+  const { data, months} = useSelector((state: { data: { data: any[]; months: any[] } }) => state.data);
   const [month, setMonth] = useState("");
-  const [filterData,setFilterData] = useState([]);
+  const [filterData,setFilterData] = useState<any[]>([]);
 
-  //month for MenuItem
-  const months = [
-    { value: '1', monthName: "January" },
-    { value: '2', monthName: "February" },
-    { value: '3', monthName: "March" },
-    { value: '4', monthName: "April" },
-    { value: '5', monthName: "May" },
-    { value: '6', monthName: "June" },
-    { value: '7', monthName: "July" },
-    { value: '8', monthName: "August" },
-    { value: '9', monthName: "September" },
-    { value: '10', monthName: "October" },
-    { value: '11', monthName: "November" },
-    { value: '12', monthName: "December" },
-  ];
   const handleChange = (e: SelectChangeEvent) => {
     setMonth(e.target.value as string);
   };
-  // console.log(month);
 
   //setDefaultMonth
   useEffect(() => {
     const currentDate = new Date();
     const currentMonth = String(currentDate.getMonth() + 1);
-    console.log(currentMonth);
     setMonth(currentMonth);
+    // console.log(currentMonth);
   }, []);
 
-  //filterData when month change
+  // // //filterData when month change
   useEffect(() =>{
     const result = data.filter((item:any) =>
       String(item.month) === month
